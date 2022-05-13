@@ -1,35 +1,20 @@
 import styled from "styled-components";
 
-const Father = styled.div`
+const Wrapper = styled.div`
   display: flex;
 `;
 
-const BoxOne = styled.div`
-  background-color: teal;
-  width: 100px;
-  height: 100px;
-`;
-
-const BoxTwo = styled.div`
+const Box = styled.div`
+  height: 200px;
+  width: 200px;
   background-color: tomato;
-  width: 100px;
-  height: 100px;
-`;
-
-const Text = styled.span`
-  color: white;
 `;
 
 function App() {
   return (
-    <Father>
-      <BoxOne>
-        <Text>Hello</Text>
-      </BoxOne>
-      <BoxTwo>
-        <Text>Hello</Text>
-      </BoxTwo>
-    </Father>
+    <Wrapper>
+      <Box />
+    </Wrapper>
   );
 }
 
