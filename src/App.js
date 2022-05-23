@@ -6,26 +6,22 @@ const Wrapper = styled.div`
   align-items: center;
   height: 98vh;
   width: 98vw;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
-const Box = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  width: 200px;
-  background-color: ${(props) => props.bgColor};
-`;
-
-const Circle = styled(Box)`
-  border-radius: 100px;
+const Title = styled.h1`
+  color: ${(props) => props.theme.textColor};
+  font-size: 40px;
+  &:hover {
+    color: teal;
+    font-size: 80px;
+  }
 `;
 
 function App() {
   return (
     <Wrapper>
-      <Box bgColor="teal" />
-      <Circle bgColor="tomato" />
+      <Title>Hello</Title>
     </Wrapper>
   );
 }
