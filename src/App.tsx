@@ -36,7 +36,7 @@ footer, header, hgroup, main, menu, nav, section {
 body {
   line-height: 1;
 }
-menu, ol, ul {
+menu, ol, ul,li {
   list-style: none;
 }
 blockquote, q {
@@ -62,6 +62,7 @@ table {
   }
   a{
     text-decoration: none;
+    color:inherit;
   }
 `;
 
