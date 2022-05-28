@@ -45,7 +45,7 @@ const Title = styled.h1`
 const Loader = styled.div`
   display: block;
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
 `;
 
 const Img = styled.img`
@@ -87,7 +87,7 @@ function Coins() {
         <CoinsList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>
+              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
                 <Img
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
