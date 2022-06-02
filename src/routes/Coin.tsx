@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import styled from "styled-components";
-import { getLineAndCharacterOfPosition } from "typescript";
+import Chart from "./Chart";
+import Price from "./Price";
 
 interface RouteParams {
   coinId: string;
@@ -137,9 +144,45 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>{state?.name || "Loading..."}</Title>
+        <Title>
+          {state?.name ? state.name : loading ? "Loading..." : info?.name}
+        </Title>
       </Header>
-      {loading ? <Loader>Loading...</Loader> : priceInfo?.quotes.USD.ath_price}
+      {loading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{info?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>${info?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{info?.open_source ? "Yes" : "No"}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{info?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply:</span>
+              <span>{priceInfo?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{priceInfo?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+          <Routes>
+            <Route path="price" element={<Price />} />
+            <Route path="chart" element={<Chart />} />
+          </Routes>
+        </>
+      )}
     </Container>
   );
 }
