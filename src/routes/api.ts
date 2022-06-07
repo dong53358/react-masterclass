@@ -15,3 +15,9 @@ export async function fetchCoinTickers(coinId: string) {
     response.json()
   );
 }
+
+export async function fetchCoinHistory(coinId: string) {
+  return fetch(`${BASE_URL}/coins/${coinId}/ohlcv/historical`).then(
+    (response) => response.json()
+  );
+}
