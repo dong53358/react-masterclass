@@ -66,7 +66,7 @@ function Chart() {
               gradient: { gradientToColors: ["#1dd1a1"], stops: [0, 100] },
             },
             colors: ["#48dbfb"],
-            tooltip: { y: { formatter: (value) => `${value.toFixed(3)}` } },
+            tooltip: { y: { formatter: (value) => `$ ${value.toFixed(3)}` } },
           }}
         />
       )}
