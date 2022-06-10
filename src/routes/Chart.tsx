@@ -25,18 +25,27 @@ function Chart({ isDarkMode }: IChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
     fetchCoinHistory(coinId as string)
   );
-
   return (
     <div>
       {isLoading ? (
         "Loading chart..."
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
-              name: "Price",
-              data: data?.map((price) => price.close) ?? [],
+              data:
+                data?.map((price) => {
+                  return {
+                    x: price.time_open,
+                    y: [
+                      price.open.toFixed(2),
+                      price.high.toFixed(2),
+                      price.low.toFixed(2),
+                      price.close.toFixed(2),
+                    ],
+                  };
+                }) ?? [],
             },
           ]}
           options={{
@@ -60,7 +69,7 @@ function Chart({ isDarkMode }: IChartProps) {
               },
               type: "datetime",
             },
-            yaxis: { show: false },
+            yaxis: { show: true },
             fill: {
               type: "gradient",
               gradient: { gradientToColors: ["#1dd1a1"], stops: [0, 100] },
