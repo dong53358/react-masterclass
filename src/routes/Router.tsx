@@ -4,15 +4,20 @@ import Coin from "./Coin";
 import Coins from "./Coins";
 import Price from "./Price";
 
-function Router() {
+interface IrouterProps {
+  toggleDarkMode: () => void;
+  isDarkMode: boolean;
+}
+
+function Router({ toggleDarkMode, isDarkMode }: IrouterProps) {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/:coinId/" element={<Coin />}>
           <Route path={`price`} element={<Price />} />
-          <Route path={`chart`} element={<Chart />} />
+          <Route path={`chart`} element={<Chart isDarkMode={isDarkMode} />} />
         </Route>
-        <Route path="/" element={<Coins />} />
+        <Route path="/" element={<Coins toggleDarkMode={toggleDarkMode} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "./api";
+import { FaChevronLeft } from "react-icons/fa";
 
 interface RouteParams {
   coinId: string;
@@ -24,13 +25,16 @@ const Container = styled.div`
 const Header = styled.div`
   height: 10vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
-  font-size: 50px;
+  font-size: 35px;
+  font-weight: 600;
+  margin-left: 50px;
+  margin-right: 160px;
 `;
 
 const Loader = styled.div`
@@ -42,7 +46,7 @@ const Loader = styled.div`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.bgColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -51,10 +55,16 @@ const OverviewItem = styled.div`
   flex-direction: column;
   align-items: center;
   span:first-child {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 5px;
+    color: ${(props) => props.theme.textColor};
+  }
+  span:last-child {
+    font-size: 20px;
+    font-weight: 400;
+    color: ${(props) => props.theme.textColor};
   }
 `;
 
@@ -68,9 +78,9 @@ const Tabs = styled.div`
 const Tab = styled.span<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 15px;
+  font-weight: 600;
+  background-color: ${(props) => props.theme.bgColor};
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
@@ -82,6 +92,14 @@ const Tab = styled.span<{ isActive: boolean }>`
 
 const Description = styled.p`
   margin: 20px 0px;
+`;
+
+const Back = styled.span`
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.textColor};
 `;
 
 interface RouteState {
@@ -158,6 +176,7 @@ function Coin() {
     ["tickers", coinId],
     () => fetchCoinTickers(coinId)
   );
+
   /*
   const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState<InfoData>();
@@ -185,6 +204,12 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <Link to={"/"}>
+          <Back>
+            <FaChevronLeft />
+          </Back>
+        </Link>
+
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -204,7 +229,7 @@ function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>Price:</span>
-              <span>$ {tickersData?.quotes.USD.price}</span>
+              <span>$ {tickersData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>

@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "./api";
+import { FaMoon } from "react-icons/fa";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -14,15 +15,14 @@ const Container = styled.div`
 const Header = styled.div`
   height: 10vh;
   display: flex;
-  justify-content: center;
   align-items: center;
 `;
 
 const CoinsList = styled.div``;
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -42,7 +42,10 @@ const Coin = styled.li`
 
 const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
-  font-size: 50px;
+  font-size: 40px;
+  font-weight: 600;
+  margin-left: 160px;
+  margin-right: 110px;
 `;
 
 const Loader = styled.div`
@@ -57,6 +60,17 @@ const Img = styled.img`
   margin-right: 20px;
 `;
 
+const DarkMod = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  background-color: ${(props) => props.theme.btnColor};
+  padding: 10px;
+  border-radius: 50%;
+`;
+
 interface ICoin {
   id: string;
   name: string;
@@ -67,7 +81,11 @@ interface ICoin {
   type: string;
 }
 
-function Coins() {
+interface ICoinsProps {
+  toggleDarkMode: () => void;
+}
+
+function Coins({ toggleDarkMode }: ICoinsProps) {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   /*const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
@@ -88,6 +106,9 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>코인</Title>
+        <DarkMod onClick={toggleDarkMode}>
+          <FaMoon />
+        </DarkMod>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
