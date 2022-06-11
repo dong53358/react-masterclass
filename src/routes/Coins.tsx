@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "./api";
 import { FaMoon } from "react-icons/fa";
+import { useSetRecoilState } from "recoil";
+import { isDarkArom } from "../atoms";
 
 const Container = styled.div`
   padding: 0px 20px;
-  max-width: 480px;
+  max-width: 500px;
   margin: 0 auto;
 `;
 
@@ -25,6 +27,7 @@ const Coin = styled.li`
   color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
+  width: 440px;
   a {
     display: flex;
     align-items: center;
@@ -44,8 +47,8 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
   font-size: 40px;
   font-weight: 600;
-  margin-left: 160px;
-  margin-right: 110px;
+  margin-left: 170px;
+  margin-right: 130px;
 `;
 
 const Loader = styled.div`
@@ -81,11 +84,9 @@ interface ICoin {
   type: string;
 }
 
-interface ICoinsProps {
-  toggleDarkMode: () => void;
-}
-
-function Coins({ toggleDarkMode }: ICoinsProps) {
+function Coins() {
+  const setDarkAtom = useSetRecoilState(isDarkArom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
   /*const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [loading, setLoading] = useState(true);
@@ -106,8 +107,8 @@ function Coins({ toggleDarkMode }: ICoinsProps) {
       </Helmet>
       <Header>
         <Title>코인</Title>
-        <DarkMod onClick={toggleDarkMode}>
-          <FaMoon />
+        <DarkMod>
+          <FaMoon onClick={toggleDarkAtom} />
         </DarkMod>
       </Header>
       {isLoading ? (

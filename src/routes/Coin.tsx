@@ -11,6 +11,9 @@ import {
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "./api";
 import { FaChevronLeft } from "react-icons/fa";
+import { FaMoon } from "react-icons/fa";
+import { useSetRecoilState } from "recoil";
+import { isDarkArom } from "../atoms";
 
 interface RouteParams {
   coinId: string;
@@ -33,8 +36,6 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
   font-size: 35px;
   font-weight: 600;
-  margin-left: 50px;
-  margin-right: 160px;
 `;
 
 const Loader = styled.div`
@@ -100,6 +101,19 @@ const Back = styled.span`
   justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.textColor};
+  margin-right: 20px;
+`;
+
+const DarkMod = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  background-color: ${(props) => props.theme.btnColor};
+  padding: 10px;
+  border-radius: 50%;
+  margin-right: 20px;
 `;
 
 interface RouteState {
@@ -161,6 +175,8 @@ interface PriceData {
 }
 
 function Coin() {
+  const setDarkAtom = useSetRecoilState(isDarkArom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   const { coinId } = useParams<keyof RouteParams>() as RouteParams;
   const { state } = useLocation() as RouteState;
   const priceMatch = useMatch("/:coinId/price");
@@ -213,6 +229,9 @@ function Coin() {
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
+        <DarkMod>
+          <FaMoon onClick={toggleDarkAtom} />
+        </DarkMod>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>

@@ -13,10 +13,10 @@ const TodayPriceItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 445px;
+  width: 440px;
   padding: 20px 80px;
   background-color: ${(props) => props.theme.bgColor};
-  border-radius: 50px;
+  border-radius: 10px;
   margin-bottom: 20px;
   span:first-child {
     color: ${(props) => props.theme.textColor};
